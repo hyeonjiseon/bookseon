@@ -23,8 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     Button login, join;
     EditText userid, userpw;
     SharedPreferences loginInfo;//로그인 정보 저장하는
-    SharedPreferences.Editor editor;//입력된 loginInfo
-
+    SharedPreferences.Editor editor;//입력된 정보 putString, commit으로 loginInfo에 저장
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,14 +48,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (userid.length() == 0 || userpw.length() == 0) {//아이디 비번 공백일 때
+                if (userid.length() == 0 || userpw.length() == 0) {//아이디 또는 비번 공백일 때
                     Toast.makeText(getApplicationContext(), "아이디, 비밀번호를 입력해 주세요.", Toast.LENGTH_LONG).show();
                     return;
                 }
 
                 String id = userid.getText().toString();
                 int password = Integer.parseInt(userpw.getText().toString());
-
 
                 String url = getString(R.string.server_address )+ "login.php";
                 ContentValues values = new ContentValues();
@@ -65,8 +63,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 NetworkTask networkTask = new NetworkTask(url, values);
 
-                String result = "";  //서버 통해 얻어온 로그인 json 값이 될 예정
-                Boolean iserror = true;  //서버에서 로그인 성공 여부를 받아올 변수
+                String result = "";//서버 통해 얻어온 로그인 json 값이 될 예정
+                Boolean iserror = true;//서버에서 로그인 성공 여부를 받아올 변수
 
                 try {
                     result =  networkTask.execute().get();
@@ -77,7 +75,6 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "다시 시도해주세요.", Toast.LENGTH_SHORT).show();
                     return;
                 }//서버,json 문제 예외처리들
-
 
 
                 if(iserror) {  //잘못된 정보를 입력하여 로그인 실패
@@ -97,8 +94,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-
-    protected InputFilter editFilter = new InputFilter() {
+    protected InputFilter editFilter = new InputFilter() {//입력 문자 제한
         public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
             Pattern pattern = Pattern.compile("^[a-zA-Z0-9]+$");        // 영문,숫자
             if(!pattern.matcher(source).matches()) {
