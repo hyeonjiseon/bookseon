@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         join = (Button) findViewById(R.id.activity_join);
         userid = findViewById(R.id.id_edit);
         userpw = findViewById(R.id.pw_edit);
-        userid.setFilters(new InputFilter[] {editFilter, new InputFilter.LengthFilter(10)});
+        userid.setFilters(new InputFilter[] {editFilter, new InputFilter.LengthFilter(10)});//inputfilter를 이용한 글자수 제한
 
         join.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
 
     protected InputFilter editFilter = new InputFilter() {//입력 문자 제한
         public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-            Pattern pattern = Pattern.compile("^[a-zA-Z0-9]+$");        // 영문,숫자
+            Pattern pattern = Pattern.compile("^[a-zA-Z0-9]+$");//영문,숫자
             if(!pattern.matcher(source).matches()) {
                 return "";
             }
