@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);//구체적 모양은 res/menu/menu.xml
         actionbar = getSupportActionBar();
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
